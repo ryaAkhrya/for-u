@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>:3</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fce4ec;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #fff;
+      border: 2px solid #e91e63;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 40px;
+      background-color: #fff;
+      border-top: 2px solid #e91e63;
+      border-radius: 0 0 10px 10px;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      color: #e91e63;
+      visibility: hidden;
+    }
+
+    .hidden-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    #button {
+      background-color: #ff538d;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .hidden-content.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+      z-index: 999; /* Make sure it's above other elements */
+      display: none; /* Initially hidden */
+    }
+
+    /* Add loading spinner styles */
+    .loading-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #e91e63;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+  <div class="envelope" id="envelope">
+    <div class="flap" id="flap"></div>
+    <div class="heart" id="heart">❤️</div>
+    <div class="hidden-content" id="hiddenContent">
+      <button id="button" onclick="redirectToAnotherPage()">Open</button>
+    </div>
+  </div>
+  <script>
+    function redirectToAnotherPage() {
+      // Display loading overlay
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.style.display = 'block';
+
+      // Display notification after 4 seconds
+      setTimeout(function() {
+        alert("Tunggu sebentar ya, Dian!");
+
+        // Redirect to the next page after 2 seconds
+        setTimeout(function() {
+          window.location.href = 'nextpage.html';
+        }, 2000);
+
+      }, 10);
+    }
+
+    const envelope = document.getElementById('envelope');
+    const flap = document.getElementById('flap');
+    const heart = document.getElementById('heart');
+    const button = document.getElementById('button');
+    let flapOpen = false;
+
+    envelope.addEventListener('click', () => {
+      if (!flapOpen) {
+        flap.style.transform = 'translateX(-50%) rotateX(90deg)';
+        heart.style.visibility = 'hidden';
+        hiddenContent.classList.add('show');
+        button.style.opacity = '1';
+        flapOpen = true;
+      }
+    });
+  </script>
+</body>
+</html>
